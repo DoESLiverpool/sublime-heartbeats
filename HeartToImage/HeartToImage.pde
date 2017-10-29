@@ -1,8 +1,15 @@
 /**
- * Create Image. 
- * 
- * The createImage() function provides a fresh buffer of pixels to play with.
- * This example creates an image gradient.
+ * HeartToImage
+ *
+ * Takes a CSV of heartrate data (raw output from an analog pulse sensor)
+ * in the form of a text file with one sample per line and turns it into a
+ * pattern which gets saved as a file
+ *
+ * Usage:
+ * Set the width and height at the start of setup()
+ * Change dataFile to have the name of your source data
+ * When you run the sketch you'll see the output of the pattern, and a copy
+ * will be saved in the same place as the data file, with a ".png" suffix
  */
 
 PImage img;
@@ -10,13 +17,16 @@ String[] data;
 int imageWidth;
 int imageHeight;
 
+String dataFile = "example.csv";
+
+
 void setup() {
   size(220, 100);  
   imageWidth = 220;
   imageHeight = 100;
   
   // Load the data we're going to visualise
-  data = loadStrings("/home/adrian/sandbox/github/sublime-heartbeats/HeartToImage/example.csv");
+  data = loadStrings(dataFile);
 
   // Find the highest and lowest values in the data
   float lowestValue = 0;
@@ -43,7 +53,7 @@ void setup() {
     img.pixels[i+3] = color(0, a, 204, a); 
     img.pixels[i+4] = color(0, a, 204, a); 
   }
-  img.save("adrian.png");
+  img.save(dataFile+".png");
   //img.resize(displayWidth, displayHeight);
 }
 
